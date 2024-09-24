@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="p_image_path" class="form-label">Image</label>
-                        <input type="file" class="form-control" id="p_image_path" name="p_image" required>
+                        <input type="file" class="form-control" id="p_image_path" name="p_image_path" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>

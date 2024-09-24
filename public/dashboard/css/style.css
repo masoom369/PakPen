@@ -11,6 +11,9 @@ body {
     display: flex;
     flex-direction: column;
 }
+textarea{
+    resize: none;
+}
 
 .wrapper {
     flex: 1;

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('content')
 
+@section('content')
 <div class="bg-light mt-5 mb-5" style="padding: 20px;">
     <center>
         <h4>Contact Messages</h4>
@@ -13,7 +13,14 @@
         </div>
     @endif
 
-    <div class="table_responsive">
+    @if(session('destroy'))
+        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-3" role="alert">
+            {{ session('destroy') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="table-responsive">
         <table class="table" id="messages">
             <thead>
                 <tr>
@@ -21,7 +28,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Message</th>
-                    <th>Created At</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +38,14 @@
                         <td>{{ $message->name }}</td>
                         <td>{{ $message->email }}</td>
                         <td>{{ $message->message }}</td>
-                        <td>{{ $message->created_at }}</td>
+                        <td>
+                            <form action="{{ route('contact-us.destroy', $message->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this message?');">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -42,5 +56,4 @@
         </table>
     </div>
 </div>
-
 @endsection

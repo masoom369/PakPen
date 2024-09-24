@@ -33,29 +33,30 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'p_name' => 'required|string|max:255',
-            'p_description' => 'required|string',
-            'p_price' => 'required|numeric',
-            'p_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'required|exists:categories,category_id',
-        ]);
+{
+    $request->validate([
+        'p_name' => 'required|string|max:255',
+        'p_description' => 'required|string',
+        'p_price' => 'required|numeric',
+        'p_image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Match the input name
+        'category_id' => 'required|exists:categories,category_id',
+    ]);
 
-        $imageName = time() . '.' . $request->p_image->extension();
-        $request->p_image->move(public_path('product_images'), $imageName);
+    $imageName = time() . '.' . $request->p_image_path->extension(); // Use p_image
+    $request->p_image_path->move(public_path('product_images'), $imageName);
 
-        Product::create([
-            'p_name' => $request->input('p_name'),
-            'p_description' => $request->input('p_description'),
-            'p_price' => $request->input('p_price'),
-            'p_image_path' => 'product_images/' . $imageName,
-            'seller_id' => Auth::id(),
-            'category_id' => $request->input('category_id'),
-        ]);
+    Product::create([
+        'p_name' => $request->input('p_name'),
+        'p_description' => $request->input('p_description'),
+        'p_price' => $request->input('p_price'),
+        'p_image_path' => 'product_images/' . $imageName,
+        'seller_id' => Auth::id(),
+        'category_id' => $request->input('category_id'),
+    ]);
 
-        return redirect()->route('seller.view-products')->with('success', 'Product created successfully.');
-    }
+    return redirect()->route('seller.view-products')->with('success', 'Product created successfully.');
+}
+
 
     public function edit($id)
     {
@@ -76,19 +77,19 @@ class ProductController extends Controller
             'p_name' => 'required|string|max:255',
             'p_description' => 'required|string',
             'p_price' => 'required|numeric',
-            'p_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'p_image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // updated to use p_image
             'category_id' => 'required|exists:categories,category_id',
         ]);
 
         $product = Product::findOrFail($id);
 
-        if ($request->hasFile('p_image')) {
+        if ($request->hasFile('p_image_path')) { // updated to check for p_image
             if (File::exists(public_path($product->p_image_path))) {
-                File::delete(public_path($product->p_image_path));
+                File::delete(public_path($product->p_image_path)); // Delete the old image
             }
 
-            $imageName = time() . '.' . $request->p_image->extension();
-            $request->p_image->move(public_path('product_images'), $imageName);
+            $imageName = time() . '.' . $request->p_image_path->extension();
+            $request->p_image_path->move(public_path('product_images'), $imageName);
             $product->p_image_path = 'product_images/' . $imageName;
         }
 
@@ -113,7 +114,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if (File::exists(public_path($product->p_image_path))) {
-            File::delete(public_path($product->p_image_path));
+            File::delete(public_path($product->p_image_path)); // Delete the image
         }
 
         $product->delete();

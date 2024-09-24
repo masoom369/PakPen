@@ -25,7 +25,8 @@
 
     <style>
         /* Ensure the body and html take up the full height of the viewport */
-        html, body {
+        html,
+        body {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -63,6 +64,7 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -188,6 +190,7 @@
             .header__menu {
                 display: none;
             }
+
             #searchbar {
                 padding: 10px;
                 font-size: 14px;
@@ -284,9 +287,13 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i>
-                        <span id="cart-items-count">0</span></a></li>
-                <li><strong>item:</strong> <span id="cart-total-price">0</span></li>
+                <li>
+                    <a href="{{ url('cart') }}">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span id="cart-items-count">{{ $totalItems ?? 0 }}</span>
+                        <!-- Server-side value with fallback to 0 -->
+                    </a>
+                </li>
             </ul>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -297,7 +304,6 @@
                 <li><a href="{{ url('/contactus') }}">Contact Us</a></li>
                 @if (Route::has('login'))
                     @auth
-
                         <li><a href="{{ url('/home') }}">Dashboard</a></li>
                         <li><a href="{{ route('profile.show') }}">Profile</a></li>
                         <li>
@@ -355,9 +361,13 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="{{ url('cart') }}"><i class="fa fa-shopping-bag"></i> <span
-                                        id="cart-items-count">0</span></a></li>
-                            <li><strong>item:</strong> <span id="cart-total-price">0</span></li>
+                            <li>
+                                <a href="{{ url('cart') }}">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span id="cart-items-count">{{ $cartSummary['totalItems'] ?? 0 }}</span>
+                                    <!-- Server-side value with fallback to 0 -->
+                                </a>
+                            </li>
                         </ul>
                         <div class="header__menu">
                             <ul>
@@ -370,8 +380,7 @@
                                                 <li>
                                                     <form id="logout-form" method="POST" action="{{ url('logout') }}">
                                                         @csrf
-                                                        <button type="submit"
-                                                            class="logout-button">Log Out</button>
+                                                        <button type="submit" class="logout-button">Log Out</button>
                                                     </form>
                                                 </li>
                                             @else
@@ -425,15 +434,15 @@
                                     href="{{ url('product-detail', $product->product_id) }}">product/{{ $product->p_name }}</a>
                             </li>
                         @endforeach
-
+                        @foreach ($books as $book)
+                            <li class="search-item"><a
+                                    href="{{ url('book-detail', $book->book_id) }}">product/{{ $book->b_name }}</a>
+                            </li>
+                        @endforeach
                         @foreach ($categories as $category)
                             <li class="search-item"><a
                                     href="{{ url('categorywise', $category->category_id) }}">Category/{{ $category->c_name }}</a>
                             </li>
-                        @endforeach
-                        @foreach ($sellers as $seller)
-                            <li class="search-item"><a
-                                    href=" {{ url('shopwise', $seller->id) }}">Seller/{{ $seller->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -465,20 +474,18 @@
                     <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
+                            <li><a href="#">Home</a></li>
                             <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            @if (Route::has('login'))
+                                @auth
+                                    <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                                    <li><a href="{{ route('profile.show') }}">Profile</a></li>
+                                @else
+                                    <li><a href="{{ route('login') }}">Log in</a></li>
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @endauth
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -559,66 +566,23 @@
             }
         }
     </script>
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('{{ url('/') }}')  // Fetching from the new route
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-            });
-
-            $('.addToCartForm').on('submit', function(event) {
-                event.preventDefault();
-
-                var form = $(this);
-                var formData = form.serialize();
-
-                $.ajax({
-                    url: form.attr('action'),
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        $('#responseMessage').html(`
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                ${response.message}
-                                <button type="button" class="btn-close mt-2" aria-label="Close"></button>
-                            </div>
-                        `);
-                    },
-                    error: function(xhr) {
-                        var errorMessage = xhr.responseJSON.message || 'An error occurred.';
-                        $('#responseMessage').html(`
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                ${errorMessage}
-                                <button type="button" class="btn-close mt-2" aria-label="Close"></button>
-                            </div>
-                        `);
-                    }
-                });
-            });
-
-            $('.p-quantity').on('change', function() {
-                var quantity = $(this).val();
-                var pricePerUnit = $(this).data('price');
-                var priceInput = $(this).closest('form').find('.p-price');
-                priceInput.val(quantity * pricePerUnit);
-            });
-
-            $(document).on('click', '.alert-dismissible .btn-close', function() {
-                $(this).parent().alert('close');
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('{{ route('cart.summary') }}')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('cart-items-count').textContent = data.totalItems;
-                    document.getElementById('cart-total-price').textContent = data.totalPrice.toFixed(2);
-                });
-        });
-    </script>
+                return response.json();
+            })
+            .then(data => {
+                // Update the cart count and price, even if it's zero
+                document.getElementById('cart-items-count').textContent = data.totalItems || 0;
+            })
+            .catch(error => console.error('Error fetching cart summary:', error));
+    });
+</script>
 
 </body>
 

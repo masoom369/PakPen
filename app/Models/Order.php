@@ -1,23 +1,22 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
     protected $primaryKey = 'order_id';
 
     protected $fillable = [
+        'seller_id',
         'customer_id',
         'product_id',
-        'seller_id',
-        'p_quantity',
-        'p_price',
+        'book_id',
+        'order_price',
+        'order_quantity',
         'order_status',
     ];
 
@@ -35,4 +34,10 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
 }
+

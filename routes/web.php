@@ -1,8 +1,14 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-    BookController, HomeController, UserController, ProductController,
-    CartItemController, CategoryController, ContactUsController
+    BookController,
+    HomeController,
+    UserController,
+    ProductController,
+    CartItemController,
+    CategoryController,
+    ContactUsController
 };
 
 // Common Middleware for authenticated and verified users
@@ -16,15 +22,15 @@ Route::middleware([
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/home', [HomeController::class, 'home']);
+Route::get('/library', [HomeController::class, 'library']);
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/contactus', [HomeController::class, 'contactus']);
 Route::get('/categorywise/{id}', [HomeController::class, 'categorywise']);
 Route::get('/product-detail/{id}', [HomeController::class, 'productdetail'])->name('product-detail');
+Route::get('/book-detail/{id}', [HomeController::class, 'bookDetail'])->name('product-detail');
 Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
-
-// Contact Us Routes
-Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact-us.store');
+Route::post('/contactus', [ContactUsController::class, 'store'])->name('contact.store');
 
 // Cart Routes
 Route::prefix('cart')->group(function () {
@@ -47,19 +53,20 @@ Route::prefix('seller')->group(function () {
     Route::delete('delete-product/{id}', [ProductController::class, 'destroy'])->name('seller.delete-product');
 
     // Book Routes
-    Route::get('books', [BookController::class, 'read'])->name('seller.view-books');
-    Route::get('books/create', [BookController::class, 'create'])->name('seller.add-book');
-    Route::post('books/store', [BookController::class, 'store'])->name('seller.store-book');
-    Route::get('books/{id}/edit', [BookController::class, 'edit'])->name('seller.edit-book');
-    Route::put('books/{id}', [BookController::class, 'update'])->name('seller.update-book');
-    Route::delete('books/{id}', [BookController::class, 'destroy'])->name('seller.delete-book');
+    Route::get('view-books', [BookController::class, 'read'])->name('seller.view-books');
+    Route::get('add-book', [BookController::class, 'create'])->name('seller.add-book');
+    Route::post('add-book', [BookController::class, 'store'])->name('seller.add-book-form');
+    Route::get('edit-book/{id}', [BookController::class, 'edit'])->name('seller.edit-book');
+    Route::put('update-book/{id}', [BookController::class, 'update'])->name('seller.update-book');
+    Route::delete('delete-book/{id}', [BookController::class, 'destroy'])->name('seller.delete-book');
 });
 
 // Admin Routes
 // Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 Route::prefix('admin')->group(function () {
     // Contact Messages
-    Route::get('contact-messages', [ContactUsController::class, 'index'])->name('admin.contact-messages');
+    Route::delete('/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('contact-us.destroy');
+    Route::get('/contactdata', [ContactUsController::class, 'index'])->name('contact.index')->middleware('admin');
 
     // Product Routes
     Route::get('view-products', [ProductController::class, 'read1'])->name('admin.view-products');
@@ -85,3 +92,4 @@ Route::prefix('admin')->group(function () {
     Route::put('update-books/{id}', [BookController::class, 'update'])->name('admin.update-book');
     Route::delete('delete-books/{id}', [BookController::class, 'destroy'])->name('admin.delete-book');
 });
+Route::get('/books/{id}/download', [BookController::class, 'download'])->name('download-book');

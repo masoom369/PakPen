@@ -67,10 +67,14 @@
         <div class="map-inside">
             <i class="icon_pin"></i>
             <div class="inside-widget">
-                <h4>New York</h4>
+                <h4>Karachi</h4>
                 <ul>
-                    <li>Phone: +12-345-6789</li>
-                    <li>Add: 16 Creek Ave. Farmingdale, NY</li>
+                    @if ($admin)
+                        <li>{{ $admin->phone }}</li>
+                        <li>{{ $admin->address }}</li>
+                    @else
+                        <p>No admin found.</p>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -87,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ url('contact-us') }}" method="POST">
+            <form action="{{ url('contactus') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6">

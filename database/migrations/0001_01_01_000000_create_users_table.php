@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('requested_usertype', ['customer', 'seller', 'delivery_agent', 'admin'])->default('customer');
             $table->enum('actual_usertype', ['customer', 'seller', 'delivery_agent', 'admin', 'banned'])->default('customer');
-            $table->enum('verification_status',['pending','approved','rejected'])->default('pending');
+            $table->enum('verification_status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('email')->unique();
             $table->string('phone');
             $table->enum('payment_method', ['easypaisa', 'visa', 'mastercard', 'cashondelivery', 'jazzcash']);

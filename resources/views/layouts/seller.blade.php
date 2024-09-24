@@ -56,11 +56,17 @@
                     <a href="{{ url('seller/add-product') }}" class="nav-item nav-link">
                         <i class="fas fa-users me-2"></i>Add product
                     </a>
+                    <a href="{{ url('seller/add-book') }}" class="nav-item nav-link">
+                        <i class="fas fa-users me-2"></i>Add book
+                    </a>
                     <a href="{{ url('seller/view-products') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>View products
+                        <i class="fas fa-hospital me-2"></i>manage products
+                    </a>
+                    <a href="{{ url('seller/view-books') }}" class="nav-item nav-link">
+                        <i class="fas fa-hospital me-2"></i>manage books
                     </a>
                     <a href="{{ url('seller/view-orders') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>View orders
+                        <i class="fas fa-hospital me-2"></i>manage orders
                     </a>
                     <a href="{{ url('seller/view-code_of_conduct') }}" class="nav-item nav-link">
                         <i class="fas fa-hospital me-2"></i>Code of Conduct

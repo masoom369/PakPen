@@ -1,4 +1,4 @@
-@extends('layouts.seller')
+@extends('layouts.admin')
 
 @section('content')
 <div class="bg-light mt-5 mb-5" style="padding: 20px;">

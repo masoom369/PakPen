@@ -43,7 +43,8 @@
 
                 <div class="d-flex align-items-center ms-4 mb-2">
                     <div class="position-relative">
-                        <h6><img class="rounded-circle" src="{{Auth::user()->profile_photo_url }}" alt="" style="width: 40px; height: 40px;"></h6>
+                        <h6><img class="rounded-circle" src="{{ Auth::user()->profile_photo_url }}" alt=""
+                                style="width: 40px; height: 40px;"></h6>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ Auth::user()->name }}</h6>
@@ -54,29 +55,20 @@
                     <a href="{{ url('home') }}" class="nav-item nav-link">
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
-                    <a href="{{ url('admin/user-approve') }}" class="nav-item nav-link">
-                        <i class="fas fa-home me-2"></i>manage user
-                    </a>
                     <a href="{{ url('admin/add-category') }}" class="nav-item nav-link">
                         <i class="fas fa-users me-2"></i>Add category
                     </a>
                     <a href="{{ url('admin/view-categories') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>View Categories
+                        <i class="fas fa-hospital me-2"></i>manage Categories
                     </a>
                     <a href="{{ url('admin/view-products') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>View Products
+                        <i class="fas fa-hospital me-2"></i>manage Products
                     </a>
-                    <a href="{{ url('admin/view-orders') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>View orders
+                    <a href="{{ url('admin/view-books') }}" class="nav-item nav-link">
+                        <i class="fas fa-hospital me-2"></i>manage Books
                     </a>
-                    <a href="{{ url('admin/view-refunds') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>Refund Requests
-                    </a>
-                    <a href="{{ url('admin/view-contact_us') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>Contact Us
-                    </a>
-                    <a href="{{ url('admin/view-code_of_conduct') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>Code of Conduct
+                    <a href="{{ url('admin/contactdata') }}" class="nav-item nav-link">
+                        <i class="fas fa-hospital me-2"></i>manage Contact
                     </a>
                 </div>
             </nav>
@@ -92,13 +84,15 @@
                 </a>
                 <a href="{{ url('/') }}" class="navbar-brand  d-lg-none ms-4">
                     <h1 class="mt-1" style="color:#d8ae7e;">
-                        </class> <img src="{{ asset('logo-no-bg.png') }}" style="width: 150px; height: 50px;" alt=""></h1>
+                        </class> <img src="{{ asset('logo-no-bg.png') }}" style="width: 150px; height: 50px;"
+                            alt=""></h1>
                 </a>
 
                 <div class="navbar-nav ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle" src="{{Auth::user()->profile_photo_url }}" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="{{ Auth::user()->profile_photo_url }}" alt=""
+                                style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -132,7 +126,8 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            Copyright &copy; 2024 <a href="{{url('/')}}" style="color: #d8ae7e">Pakpen</a>, All Right Reserved.
+                            Copyright &copy; 2024 <a href="{{ url('/') }}" style="color: #d8ae7e">Pakpen</a>,
+                            All Right Reserved.
                         </div>
                     </div>
                 </div>
@@ -173,7 +168,6 @@
             $('#delivery_agent').DataTable();
             $('#table_responsive').DataTable();
         });
-
     </script>
 </body>
 

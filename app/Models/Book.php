@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,10 +8,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $table = 'books';
     protected $primaryKey = 'book_id';
-
-    public $incrementing = true;
 
     protected $fillable = [
         'category_id',
@@ -32,5 +28,15 @@ class Book extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class, 'book_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'book_id');
     }
 }

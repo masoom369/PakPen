@@ -18,33 +18,37 @@
             <form method="POST" action="{{ route('two-factor.login') }}">
                 @csrf
 
+                <!-- Authentication Code Input -->
                 <div class="mt-4" x-show="! recovery">
                     <x-label for="code" value="{{ __('Code') }}" />
                     <x-input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code" autofocus x-ref="code" autocomplete="one-time-code" />
                 </div>
 
+                <!-- Recovery Code Input -->
                 <div class="mt-4" x-cloak x-show="recovery">
                     <x-label for="recovery_code" value="{{ __('Recovery Code') }}" />
                     <x-input id="recovery_code" class="block mt-1 w-full" type="text" name="recovery_code" x-ref="recovery_code" autocomplete="one-time-code" />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
+                    <!-- Toggle to Recovery Code -->
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
-                                    x-show="! recovery"
-                                    x-on:click="
-                                        recovery = true;
-                                        $nextTick(() => { $refs.recovery_code.focus() })
-                                    ">
+                        x-show="! recovery"
+                        x-on:click="
+                            recovery = true;
+                            $nextTick(() => { $refs.recovery_code.focus() })
+                        ">
                         {{ __('Use a recovery code') }}
                     </button>
 
+                    <!-- Toggle to Authentication Code -->
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
-                                    x-cloak
-                                    x-show="recovery"
-                                    x-on:click="
-                                        recovery = false;
-                                        $nextTick(() => { $refs.code.focus() })
-                                    ">
+                        x-cloak
+                        x-show="recovery"
+                        x-on:click="
+                            recovery = false;
+                            $nextTick(() => { $refs.code.focus() })
+                        ">
                         {{ __('Use an authentication code') }}
                     </button>
 

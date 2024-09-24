@@ -55,12 +55,6 @@
     <center>
         <h4>seller List</h4>
     </center>
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
     <div class="table-responsive">
         <table class="table" id="seller">
             <thead>
@@ -105,12 +99,6 @@
     <center>
         <h4>delivery agent List</h4>
     </center>
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
     <div class="table-responsive">
         <table class="table" id="delivery_agent">
             <thead>
@@ -155,12 +143,6 @@
     <center>
         <h4>customer List</h4>
     </center>
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
     <div class="table-responsive">
         <table class="table" id="customer">
             <thead>

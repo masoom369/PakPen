@@ -21,13 +21,7 @@ class CategoryController extends Controller
             'c_image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('c_image_path')) {
-            $image = $request->file('c_image_path');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('category_image'), $imageName);
-            $imagePath = 'category_image/' . $imageName;
-        }
+        $imagePath = $this->handleImageUpload($request);
 
         Category::create([
             'c_name' => $request->input('c_name'),
@@ -37,32 +31,19 @@ class CategoryController extends Controller
         return redirect()->route('admin.view-categories')->with('success', 'Category created successfully.');
     }
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
         return view('admin.edit-category', compact('category'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
-            'c_name' => 'required|unique:categories,c_name,' . $id . ',category_id',
+            'c_name' => 'required|unique:categories,c_name,' . $category->category_id,
             'c_image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $category = Category::findOrFail($id);
-
-        $imagePath = $category->c_image_path;
-        if ($request->hasFile('c_image_path')) {
-            if ($imagePath && File::exists(public_path($imagePath))) {
-                File::delete(public_path($imagePath));
-            }
-
-            $image = $request->file('c_image_path');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('category_image'), $imageName);
-            $imagePath = 'category_image/' . $imageName;
-        }
+        $imagePath = $this->handleImageUpload($request, $category);
 
         $category->update([
             'c_name' => $request->input('c_name'),
@@ -72,10 +53,8 @@ class CategoryController extends Controller
         return redirect()->route('admin.view-categories')->with('success', 'Category updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::findOrFail($id);
-
         if ($category->c_image_path && File::exists(public_path($category->c_image_path))) {
             File::delete(public_path($category->c_image_path));
         }
@@ -83,5 +62,23 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('admin.view-categories')->with('success', 'Category deleted successfully.');
+    }
+
+    private function handleImageUpload(Request $request, Category $category = null)
+    {
+        $imagePath = null;
+
+        if ($request->hasFile('c_image_path')) {
+            if ($category && $category->c_image_path && File::exists(public_path($category->c_image_path))) {
+                File::delete(public_path($category->c_image_path));
+            }
+
+            $image = $request->file('c_image_path');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('category_image'), $imageName);
+            $imagePath = 'category_image/' . $imageName;
+        }
+
+        return $imagePath;
     }
 }
