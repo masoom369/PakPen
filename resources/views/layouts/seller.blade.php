@@ -54,18 +54,20 @@
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
                     <a href="{{ url('seller/add-product') }}" class="nav-item nav-link">
-                        <i class="fas fa-users me-2"></i>Add product
+                        <i class="fas fa-plus-circle me-2"></i> Add Product
                     </a>
                     <a href="{{ url('seller/add-book') }}" class="nav-item nav-link">
-                        <i class="fas fa-users me-2"></i>Add book
+                        <i class="fas fa-book-medical me-2"></i> Add Book
                     </a>
                     <a href="{{ url('seller/view-products') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage products
+                        <i class="fas fa-box-open me-2"></i> Manage Products
                     </a>
                     <a href="{{ url('seller/view-books') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage books
+                        <i class="fas fa-book me-2"></i> Manage Books
                     </a>
-                    <a href="{{ route('seller.orders') }}" class="nav-item nav-link">manage orders</a>
+                    <a href="{{ route('seller.orders') }}" class="nav-item nav-link">
+                        <i class="fas fa-clipboard-list me-2"></i> Manage Orders
+                    </a>                    
                 </div>
             </nav>
         </div>

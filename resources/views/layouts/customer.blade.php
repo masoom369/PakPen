@@ -55,9 +55,11 @@
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
                     <a href="{{ url('cart') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>cart items
+                        <i class="fas fa-shopping-cart me-2"></i> Cart Items
                     </a>
-                    <a href="{{ route('user.orders') }}" class="nav-item nav-link">Orders Status</a>
+                    <a href="{{ route('user.orders') }}" class="nav-item nav-link">
+                        <i class="fas fa-box-open me-2"></i> Orders Status
+                    </a>                    
                 </div>
             </nav>
         </div>

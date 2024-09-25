@@ -56,20 +56,20 @@
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
                     <a href="{{ url('admin/add-category') }}" class="nav-item nav-link">
-                        <i class="fas fa-users me-2"></i>Add category
+                        <i class="fas fa-plus-square me-2"></i> Add Category
                     </a>
                     <a href="{{ url('admin/view-categories') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage Categories
+                        <i class="fas fa-th-list me-2"></i> Manage Categories
                     </a>
                     <a href="{{ url('admin/view-products') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage Products
+                        <i class="fas fa-box-open me-2"></i> Manage Products
                     </a>
                     <a href="{{ url('admin/view-books') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage Books
+                        <i class="fas fa-book me-2"></i> Manage Books
                     </a>
                     <a href="{{ url('admin/contactdata') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage Contact-Us
-                    </a>
+                        <i class="fas fa-address-book me-2"></i> Manage Contact Us
+                    </a>                    
                 </div>
             </nav>
         </div>
@@ -170,7 +170,6 @@
             $('#book').DataTable();
             $('#delivery_agent').DataTable();
             $('#messages').DataTable();
-
         });
     </script>
 </body>

@@ -54,8 +54,12 @@
                     <a href="{{ url('home') }}" class="nav-item nav-link">
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
-                    <a href="{{ route('delivery.ready') }}" class="nav-item nav-link"> Orders To Pick</a>
-                    <a href="{{ route('delivery.delivering') }}" class="nav-item nav-link">Orders Delivered</a>
+                    <a href="{{ route('delivery.ready') }}" class="nav-item nav-link">
+                        <i class="fas fa-hand-paper me-2"></i> Orders To Pick
+                    </a>
+                    <a href="{{ route('delivery.delivering') }}" class="nav-item nav-link">
+                        <i class="fas fa-truck me-2"></i> Orders Delivered
+                    </a>                    
                 </div>
             </nav>
         </div>
