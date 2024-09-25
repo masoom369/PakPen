@@ -42,7 +42,8 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-2">
                     <div class="position-relative">
-                        <h6><img class="rounded-circle" src="{{Auth::user()->profile_photo_url }}" alt="" style="width: 40px; height: 40px;"></h6>
+                        <h6><img class="rounded-circle" src="{{ Auth::user()->profile_photo_url }}" alt=""
+                                style="width: 40px; height: 40px;"></h6>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ Auth::user()->name }}</h6>
@@ -53,12 +54,8 @@
                     <a href="{{ url('home') }}" class="nav-item nav-link">
                         <i class="fas fa-home me-2"></i>Dashboard
                     </a>
-                    <a href="{{ url('seller/add-product') }}" class="nav-item nav-link">
-                        <i class="fas fa-users me-2"></i>pick orders
-                    </a>
-                    <a href="{{ url('seller/view-products') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>order delivered
-                    </a>
+                    <a href="{{ route('delivery.ready') }}" class="nav-item nav-link"> Orders To Pick</a>
+                    <a href="{{ route('delivery.delivering') }}" class="nav-item nav-link">Orders Delivered</a>
                 </div>
             </nav>
         </div>
@@ -73,14 +70,16 @@
                 </a>
                 <a href="{{ url('/') }}" class="navbar-brand  d-lg-none ms-4">
                     <h1 class="mt-1" style="color:#d8ae7e;">
-                        </class> <img src="{{ asset('logo-no-bg.png') }}" style="width: 150px; height: 50px;" alt=""></h1>
+                        </class> <img src="{{ asset('logo-no-bg.png') }}" style="width: 150px; height: 50px;"
+                            alt=""></h1>
                 </a>
 
 
                 <div class="navbar-nav ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle" src="{{Auth::user()->profile_photo_url }}" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="{{ Auth::user()->profile_photo_url }}" alt=""
+                                style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -114,7 +113,8 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            Copyright &copy; 2024 <a href="{{url('/')}}" style="color: #d8ae7e">Pakpen</a>, All Right Reserved.
+                            Copyright &copy; 2024 <a href="{{ url('/') }}" style="color: #d8ae7e">Pakpen</a>, All
+                            Right Reserved.
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,6 @@
             $('#mytable').DataTable();
             $('#mytable1').DataTable();
         });
-
     </script>
 </body>
 

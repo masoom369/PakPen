@@ -1,4 +1,4 @@
-@extends('layouts.seller')
+@extends('layouts.delivery')
 @section('content')
 <div class="section">
     <h2>Code of Conduct for Delivery Personnel</h2>

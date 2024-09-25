@@ -95,7 +95,7 @@
         }
 
         .header__menu ul li {
-            margin-right: 40px;
+            margin-right: 20px;
             position: relative;
             padding: 0 10px;
         }
@@ -108,6 +108,16 @@
             letter-spacing: 1px;
             padding: 1px 0;
             display: block;
+        }
+        .header__menu ul li button {
+            font-size: 14px;
+            color: #252525;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 1px 0;
+            display: block;
+            margin: -3px;
         }
 
         .header__cart {
@@ -306,11 +316,11 @@
                     @auth
                         <li><a href="{{ url('/home') }}">Dashboard</a></li>
                         <li><a href="{{ route('profile.show') }}">Profile</a></li>
-                        <li>
+                        <li><a >
                             <form method="POST" action="{{ url('logout') }}">
                                 @csrf
-                                <a type="submit" class="logout-button">{{ __('Log Out') }}</a>
-                            </form>
+                                <button type="submit" class="logout-button">{{ __('Log Out') }}</button>
+                            </form></a>
                         </li>
                     @else
                         <li><a href="{{ route('login') }}">Log in</a></li>
@@ -351,8 +361,15 @@
                             @if (Route::has('login'))
                                 @auth
                                     <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                                    <li><a>
+                                        <form method="POST" action="{{ url('logout') }}">
+                                            @csrf
+                                            <button type="submit" class=" text-black bg-white" style="border:none;margin-bottom:-15px;;">{{ __('Log Out') }}</button>
+                                        </form></a>
+                                    </li>
                                 @else
                                     <li><a href="{{ route('register') }}">Register</a></li>
+                                    <li><a href="{{ route('login') }}">Log in</a></li>
                                 @endauth
                             @endif
                         </ul>
@@ -369,29 +386,6 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="header__menu">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fa fa-user"></i></a>
-                                    <ul class="header__menu__dropdown">
-                                        @if (Route::has('login'))
-                                            @auth
-                                                <li><a href="{{ route('profile.show') }}">Profile</a></li>
-                                                <li>
-                                                    <form id="logout-form" method="POST" action="{{ url('logout') }}">
-                                                        @csrf
-                                                        <button type="submit" class="logout-button">Log Out</button>
-                                                    </form>
-                                                </li>
-                                            @else
-                                                <li><a href="{{ route('register') }}">Register</a></li>
-                                                <li><a href="{{ route('login') }}">Log In</a></li>
-                                            @endauth
-                                        @endif
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

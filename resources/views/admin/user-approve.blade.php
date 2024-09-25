@@ -4,12 +4,6 @@
     <div class="md:mt-0 md:col-span-2">
         <div class="px-4 py-5 bg-white sm:p-6 shadow sm:rounded-md">
             <h4 class="mb-2">Edit User</h4>
-            @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
             <form method="POST" action="{{ url('admin/user-approve', $user->id) }}">
                 @csrf
                 @method('PUT')

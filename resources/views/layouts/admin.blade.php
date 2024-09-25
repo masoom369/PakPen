@@ -68,7 +68,7 @@
                         <i class="fas fa-hospital me-2"></i>manage Books
                     </a>
                     <a href="{{ url('admin/contactdata') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage Contact
+                        <i class="fas fa-hospital me-2"></i>manage Contact-Us
                     </a>
                 </div>
             </nav>
@@ -165,8 +165,12 @@
             $('#user').DataTable();
             $('#seller').DataTable();
             $('#customer').DataTable();
+            $('#category').DataTable();
+            $('#product').DataTable();
+            $('#book').DataTable();
             $('#delivery_agent').DataTable();
-            $('#table_responsive').DataTable();
+            $('#messages').DataTable();
+
         });
     </script>
 </body>

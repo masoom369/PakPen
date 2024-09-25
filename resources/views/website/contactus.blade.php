@@ -1,4 +1,5 @@
 @extends('layouts.website')
+
 @section('content')
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
@@ -87,10 +88,21 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="contact__form__title">
-                        <h2>Leave Message</h2>
+                        <h2>Contact Us</h2>
                     </div>
                 </div>
             </div>
+
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+
             <form action="{{ url('contactus') }}" method="POST">
                 @csrf
                 <div class="row">
@@ -115,14 +127,6 @@
                     </div>
                 </div>
             </form>
-
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
         </div>
     </div>
     <!-- Contact Form End -->

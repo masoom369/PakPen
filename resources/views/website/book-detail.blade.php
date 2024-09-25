@@ -1,9 +1,6 @@
 @extends('layouts.website')
 @section('content')
     <main>
-        <div class="container mt-3 mb-3">
-            <div id="responseMessage"></div>
-        </div>
         <div class="container mb-4">
             <div class="row">
                 <div class="col-md-5">

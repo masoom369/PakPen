@@ -57,15 +57,7 @@
                     <a href="{{ url('cart') }}" class="nav-item nav-link">
                         <i class="fas fa-hospital me-2"></i>cart items
                     </a>
-                    <a href="{{ url('admin/order-status') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>view order status
-                    </a>
-                    <a href="{{ url('customer/order-history') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>order history
-                    </a>
-                    <a href="{{ url('customer/view-code_of_conduct') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>Code of Conduct
-                    </a>
+                    <a href="{{ route('user.orders') }}" class="nav-item nav-link">Orders Status</a>
                 </div>
             </nav>
         </div>

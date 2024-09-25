@@ -6,21 +6,25 @@
         <h4>Books</h4>
     </center>
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show mt-3 mb-3" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    @if (session('destroy'))
-        <div class="alert alert-danger alert-dismissible fade show mt-3 mb-3" role="alert">
-            {{ session('destroy') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+@if (session('destroy'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('destroy') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 
     <a href="{{ route('seller.add-book') }}" class="btn btn-primary mb-3">Add New Book</a>
     <div class="table-responsive">
-        <table class="table" id="mytable">
+        <table class="table" id="product">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -43,7 +47,7 @@
                         <td>{{ $book->category->c_name ?? 'No Category' }}</td>
                         <td><img src="{{ asset($book->b_image_path) }}" width="100" alt="{{ $book->b_name }}"></td>
                         <td>
-                            <a href="{{ route('seller.edit-book', $book->book_id) }}" class="btn btn-sm btn-info">Edit</a>
+                            <a href="{{ route('seller.edit-book', $book->book_id) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('seller.delete-book', $book->book_id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

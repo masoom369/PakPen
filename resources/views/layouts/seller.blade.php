@@ -65,12 +65,7 @@
                     <a href="{{ url('seller/view-books') }}" class="nav-item nav-link">
                         <i class="fas fa-hospital me-2"></i>manage books
                     </a>
-                    <a href="{{ url('seller/view-orders') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>manage orders
-                    </a>
-                    <a href="{{ url('seller/view-code_of_conduct') }}" class="nav-item nav-link">
-                        <i class="fas fa-hospital me-2"></i>Code of Conduct
-                    </a>
+                    <a href="{{ route('seller.orders') }}" class="nav-item nav-link">manage orders</a>
                 </div>
             </nav>
         </div>
@@ -159,8 +154,9 @@
     <script src="{{ asset('dashboard/js/main.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#mytable').DataTable();
-            $('#mytable1').DataTable();
+            $('#book').DataTable();
+            $('#product').DataTable();
+            $('#order').DataTable();
         });
 
     </script>

@@ -20,86 +20,81 @@
     </section>
     <!-- Breadcrumb Section End -->
 
+
+
     <!-- Shopping Cart Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Items</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($cartItems as $item)
+                    <form action="{{ route('order.place') }}" method="POST">
+                        @csrf
+                        <div class="shoping__cart__table">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td class="shoping__cart__item">
-                                            @if ($item->product)
-                                                <img src="{{ asset($item->product->p_image_path) }}"
-                                                    style="width: 100px; height: 100px;" alt="{{ $item->product->p_name }}">
-                                                <h5>{{ $item->product->p_name }}</h5>
-                                            @endif
-                                            @if ($item->book)
-                                                <img src="{{ asset($item->book->b_image_path) }}"
-                                                    style="width: 100px; height: 100px;" alt="{{ $item->book->b_name }}">
-                                                <h5>{{ $item->book->b_name }}</h5>
-                                            @endif
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            ${{ number_format($item->product->p_price ?? $item->book->b_price, 2) }}
-                                        </td>
-                                        <td>
-                                            <div class="pro-qty">
-                                                <select name="quantities[{{ $item->cart_item_id }}]"
-                                                    id="quantity-select-{{ $item->cart_item_id }}"
-                                                    class="form-select quantity-dropdown"
-                                                    data-item-id="{{ $item->cart_item_id }}"
-                                                    data-price="{{ $item->product->p_price ?? $item->book->b_price }}"
-                                                    required>
-                                                    @for ($i = 1; $i <= 10; $i++)
-                                                        <option value="{{ $i }}"
-                                                            {{ $i == $item->order_quantity ? 'selected' : '' }}>
-                                                            {{ $i }}
-                                                        </option>
-                                                    @endfor
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="shoping__cart__total" id="total-price-{{ $item->cart_item_id }}">
-                                            ${{ number_format(($item->product->p_price ?? $item->book->b_price) * ($item->order_quantity ?? 1), 2) }}
-                                        </td>
-                                        <td class="shoping__cart__item__close">
-                                            <a href="{{ route('cart.remove', $item->cart_item_id) }}"
-                                                class="primary-btn cart-btn cart-btn-right">del</a>
-                                        </td>
+                                        <th class="shoping__product">Items</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Delete</th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center">Your cart is empty.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
+                                </thead>
+                                <tbody>
+                                    @forelse ($cartItems as $item)
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                @if ($item->product)
+                                                    <img src="{{ asset($item->product->p_image_path) }}" style="width: 100px; height: 100px;" alt="{{ $item->product->p_name }}">
+                                                    <h5>{{ $item->product->p_name }}</h5>
+                                                @endif
+                                                @if ($item->book)
+                                                    <img src="{{ asset($item->book->b_image_path) }}" style="width: 100px; height: 100px;" alt="{{ $item->book->b_name }}">
+                                                    <h5>{{ $item->book->b_name }}</h5>
+                                                @endif
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                ${{ number_format($item->product->p_price ?? $item->book->b_price, 2) }}
+                                            </td>
+                                            <td>
+                                                <div class="pro-qty">
+                                                    <select name="quantities[{{ $item->cart_item_id }}]" class="form-select quantity-dropdown" data-item-id="{{ $item->cart_item_id }}" data-price="{{ $item->product->p_price ?? $item->book->b_price }}">
+                                                        @for ($i = 1; $i <= 10; $i++)
+                                                            <option value="{{ $i }}" {{ $i == $item->order_quantity ? 'selected' : '' }}>
+                                                                {{ $i }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total" id="total-price-{{ $item->cart_item_id }}">
+                                                ${{ number_format(($item->product->p_price ?? $item->book->b_price) * ($item->order_quantity ?? 1), 2) }}
+                                            </td>
+                                            <td class="shoping__cart__item__close">
+                                                <a href="{{ route('cart.remove', $item->cart_item_id) }}" class="primary-btn cart-btn cart-btn-right">del</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">Your cart is empty.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
 
-                        </table>
-                    </div>
-                </div>
-            </div>
+                        <!-- Submit Button -->
+                        <div class="col-lg-6">
+                            <div class="shoping__checkout">
+                                <h5>Cart Total</h5>
+                                <ul>
+                                    <li>Total <span id="cart-total">${{ number_format($cartSummary['totalPrice'], 2) }}</span></li>
+                                </ul>
+                                <button type="submit" class="primary-btn">PROCEED TO CHECKOUT</button>
+                            </div>
+                        </div>
+                    </form>
 
-            <div class="col-lg-6">
-                <div class="shoping__checkout">
-                    <h5>Cart Total</h5>
-                    <ul>
-                        <li>Total <span id="cart-total">${{ number_format($cartSummary['totalPrice'], 2) }}</span></li>
-                    </ul>
-                    <a href="{{ route('order.place') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
-                </div>
-            </div>
         </div>
     </section>
     <!-- Shopping Cart Section End -->

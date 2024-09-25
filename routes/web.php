@@ -8,15 +8,12 @@ use App\Http\Controllers\{
     ProductController,
     CartItemController,
     CategoryController,
-    ContactUsController
+    ContactUsController,
+    OrderController
 };
 
-// Common Middleware for authenticated and verified users
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+// Middleware for authenticated and verified users
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 });
 
@@ -28,7 +25,7 @@ Route::get('/aboutus', [HomeController::class, 'aboutus']);
 Route::get('/contactus', [HomeController::class, 'contactus']);
 Route::get('/categorywise/{id}', [HomeController::class, 'categorywise']);
 Route::get('/product-detail/{id}', [HomeController::class, 'productdetail'])->name('product-detail');
-Route::get('/book-detail/{id}', [HomeController::class, 'bookDetail'])->name('product-detail');
+Route::get('/book-detail/{id}', [HomeController::class, 'bookDetail'])->name('book-detail'); // Fixed the name
 Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 Route::post('/contactus', [ContactUsController::class, 'store'])->name('contact.store');
 
@@ -37,12 +34,10 @@ Route::prefix('cart')->group(function () {
     Route::post('/add', [CartItemController::class, 'addToCart'])->name('cart.add');
     Route::put('/update', [CartItemController::class, 'updateCart'])->name('cart.update');
     Route::get('/remove/{id}', [CartItemController::class, 'removeCartItem'])->name('cart.remove');
-    Route::post('/place-order', [CartItemController::class, 'placeOrder'])->name('order.place');
     Route::get('/summary', [HomeController::class, 'cartSummary'])->name('cart.summary');
 });
 
 // Seller Routes
-// Route::prefix('seller')->middleware(['auth', 'seller'])->group(function () {
 Route::prefix('seller')->group(function () {
     // Product Routes
     Route::get('add-product', [ProductController::class, 'create'])->name('seller.add-product-form');
@@ -62,11 +57,10 @@ Route::prefix('seller')->group(function () {
 });
 
 // Admin Routes
-// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 Route::prefix('admin')->group(function () {
     // Contact Messages
-    Route::delete('/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('contact-us.destroy');
     Route::get('/contactdata', [ContactUsController::class, 'index'])->name('contact.index')->middleware('admin');
+    Route::delete('/contact-us/{id}', [ContactUsController::class, 'destroy'])->name('contact-us.destroy');
 
     // Product Routes
     Route::get('view-products', [ProductController::class, 'read1'])->name('admin.view-products');
@@ -92,4 +86,16 @@ Route::prefix('admin')->group(function () {
     Route::put('update-books/{id}', [BookController::class, 'update'])->name('admin.update-book');
     Route::delete('delete-books/{id}', [BookController::class, 'destroy'])->name('admin.delete-book');
 });
+
+// Other Routes
 Route::get('/books/{id}/download', [BookController::class, 'download'])->name('download-book');
+Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
+Route::get('/user/orders', [OrderController::class, 'userOrders'])->name('user.orders');
+Route::get('/seller/orders', [OrderController::class, 'sellerOrders'])->name('seller.orders');
+Route::get('/delivery/ready', [OrderController::class, 'readyOrders'])->name('delivery.ready');
+Route::get('/delivery/delivering', [OrderController::class, 'deliveringOrders'])->name('delivery.delivering');
+
+// Order Status Update Routes
+Route::put('/order/{id}/update-status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+Route::put('/order/{id}/update-to-delivering', [OrderController::class, 'updateToDelivering'])->name('order.updateToDelivering');
+Route::put('/order/{id}/update-to-delivered', [OrderController::class, 'updateToDelivered'])->name('order.updateToDelivered');
