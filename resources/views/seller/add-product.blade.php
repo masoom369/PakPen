@@ -18,7 +18,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="p_price" class="form-label">Price</label>
-                        <input type="number" step="0.01" class="form-control" id="p_price" name="p_price" required>
+                        <input type="number" step="0.01" placeholder="add PKR:300 for delivery + product price (300 + product price) class="form-control" id="p_price" name="p_price" required>
                     </div>
                     <div class="mb-2">
                         <label for="category_id" class="form-label">Category</label>
