@@ -24,6 +24,8 @@
             <thead>
                 <tr>
                     <th>Customer</th>
+                    <th>Customer Address</th>
+                    <th>Customer Number</th>
                     <th>Product/Book</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -35,6 +37,8 @@
                 @forelse ($orders as $order)
                 <tr>
                     <td>{{ $order->customer->name }}</td>
+                    <td>{{ $order->customer->address }}</td>
+                    <td>{{ $order->customer->phone }}</td>
                     <td>{{ $order->product->p_name ?? $order->book->b_name }}</td>
                     <td>${{ number_format($order->order_price, 2) }}</td>
                     <td>{{ $order->order_quantity }}</td>

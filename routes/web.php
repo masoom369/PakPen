@@ -48,8 +48,8 @@ Route::prefix('seller')->group(function () {
 
     // Book Routes
     Route::get('view-books', [BookController::class, 'read'])->name('seller.view-books')->middleware('seller');
-    Route::get('add-book', [BookController::class, 'create'])->name('seller.add-book')->middleware('seller');
-    Route::post('add-book', [BookController::class, 'store'])->name('seller.add-book-form')->middleware('seller');
+    Route::get('add-book', [BookController::class, 'create'])->name('seller.add-book-form')->middleware('seller');
+    Route::post('add-book', [BookController::class, 'store'])->name('seller.add-book')->middleware('seller');
     Route::get('edit-book/{id}', [BookController::class, 'edit'])->name('seller.edit-book')->middleware('seller');
     Route::put('update-book/{id}', [BookController::class, 'update'])->name('seller.update-book')->middleware('seller');
     Route::delete('delete-book/{id}', [BookController::class, 'destroy'])->name('seller.delete-book')->middleware('seller');

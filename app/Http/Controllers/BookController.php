@@ -44,34 +44,35 @@ class BookController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'b_name' => 'required|string|max:255',
-            'b_description' => 'required|string',
-            'b_price' => 'required|integer',
-            'b_image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'b_pdf_path' => 'required|mimes:pdf|max:10000',
-            'category_id' => 'required|exists:categories,category_id',
-        ]);
+{
+    $request->validate([
+        'b_name' => 'required|string|max:255',
+        'b_description' => 'required|string',
+        'b_price' => 'required|numeric', // Changed to 'numeric' for decimal support
+        'b_image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'b_pdf_path' => 'required|mimes:pdf|max:10000',
+        'category_id' => 'required|exists:categories,category_id',
+    ]);
 
-        $imageName = time() . '.' . $request->b_image_path->extension();
-        $request->b_image_path->move(public_path('book_images'), $imageName);
+    $imageName = time() . '.' . $request->b_image_path->extension();
+    $request->b_image_path->move(public_path('book_images'), $imageName);
 
-        $pdfName = time() . '.' . $request->b_pdf_path->extension();
-        $request->b_pdf_path->move(public_path('book_pdfs'), $pdfName);
+    $pdfName = time() . '.' . $request->b_pdf_path->extension();
+    $request->b_pdf_path->move(public_path('book_pdfs'), $pdfName);
 
-        Book::create([
-            'b_name' => $request->input('b_name'),
-            'b_description' => $request->input('b_description'),
-            'b_price' => $request->input('b_price'),
-            'b_image_path' => 'book_images/' . $imageName,
-            'b_pdf_path' => 'book_pdfs/' . $pdfName,
-            'seller_id' => Auth::id(),
-            'category_id' => $request->input('category_id'),
-        ]);
+    Book::create([
+        'b_name' => $request->input('b_name'),
+        'b_description' => $request->input('b_description'),
+        'b_price' => $request->input('b_price'),
+        'b_image_path' => 'book_images/' . $imageName,
+        'b_pdf_path' => 'book_pdfs/' . $pdfName,
+        'seller_id' => Auth::id(),
+        'category_id' => $request->input('category_id'),
+    ]);
 
-        return redirect()->route('seller.view-books')->with('success', 'Book created successfully.');
-    }
+    return redirect()->route('seller.view-books')->with('success', 'Book created successfully.');
+}
+
 
     public function edit($id)
     {

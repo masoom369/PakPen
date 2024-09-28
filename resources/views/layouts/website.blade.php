@@ -430,7 +430,7 @@
                         @endforeach
                         @foreach ($books as $book)
                             <li class="search-item"><a
-                                    href="{{ url('book-detail', $book->book_id) }}">product/{{ $book->b_name }}</a>
+                                    href="{{ url('book-detail', $book->book_id) }}">book/{{ $book->b_name }}</a>
                             </li>
                         @endforeach
                         @foreach ($categories as $category)

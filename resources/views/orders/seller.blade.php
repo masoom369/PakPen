@@ -46,7 +46,7 @@
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-sm btn-primary">
-                                Update to Ready
+                                Ready
                             </button>
                         </form>
                     </td>

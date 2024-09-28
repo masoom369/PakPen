@@ -48,7 +48,7 @@ class OrderController extends Controller
             }
         });
 
-        return redirect()->route('order.success')->with('message', 'Order placed successfully!');
+        return redirect()->route('user.orders')->with('success', 'Order placed successfully!');
     }
     public function userOrders()
     {

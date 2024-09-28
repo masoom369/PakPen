@@ -39,7 +39,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone }}</td>
-                        <td>{{ $user->address }}</td>
+                        <td>{{ Str::limit($user->address,10) }}</td>
                         <td>{{ $user->actual_usertype }}</td>
                         <td>{{ $user->requested_usertype }}</td>
                         <td>{{ $user->verification_status }}</td>
