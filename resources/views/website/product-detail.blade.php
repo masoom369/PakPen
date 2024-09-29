@@ -19,7 +19,8 @@
                     </div>
                     <div class="mb-2">
                         <label for="p_price" class="form-label">Price</label>
-                        <input type="number" name="p_price" id="p_price" value="{{ $product->p_price }}" class="form-control p-price" readonly />
+                        <input type="number" hidden name="p_price" id="p_price" value="{{ $product->p_price }}" class="form-control p-price" readonly />
+                        <label for="">PKR{{ $product->p_price }}</label>
                     </div>
                     <button type="submit" class="btn text-white" style="background-color:#d8ae7e;">Add to Cart</button>
                 </form>

@@ -69,7 +69,7 @@
                                                 @endif
                                             </td>
                                             <td class="shoping__cart__price">
-                                                ${{ number_format($item->product->p_price ?? $item->book->b_price, 2) }}
+                                                PKR{{ number_format($item->product->p_price ?? $item->book->b_price, 2) }}
                                             </td>
                                             <td>
                                                 <div class="pro-qty">
@@ -83,7 +83,7 @@
                                                 </div>
                                             </td>
                                             <td class="shoping__cart__total" id="total-price-{{ $item->cart_item_id }}">
-                                                ${{ number_format(($item->product->p_price ?? $item->book->b_price) * ($item->order_quantity ?? 1), 2) }}
+                                                PKR{{ number_format(($item->product->p_price ?? $item->book->b_price) * ($item->order_quantity ?? 1), 2) }}
                                             </td>
                                             <td class="shoping__cart__item__close">
                                                 <a href="{{ route('cart.remove', $item->cart_item_id) }}" class="primary-btn cart-btn cart-btn-right">del</a>
@@ -128,7 +128,7 @@
                 });
 
                 // Update cart total display
-                document.getElementById('cart-total').innerText = '$' + cartTotal.toFixed(2);
+                document.getElementById('cart-total').innerText = 'PKR' + cartTotal.toFixed(2);
 
                 // Store cartTotal in localStorage
                 localStorage.setItem('cartTotal', cartTotal.toFixed(2));
@@ -143,7 +143,7 @@
 
                     // Update individual item total
                     const totalPrice = (quantity * price).toFixed(2);
-                    document.getElementById('total-price-' + itemId).innerText = '$' + totalPrice;
+                    document.getElementById('total-price-' + itemId).innerText = 'PKR' + totalPrice;
 
                     // Recalculate and store cart total
                     updateCartTotal();

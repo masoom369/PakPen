@@ -125,7 +125,7 @@
                         @enderror
                     </div>
                     <div class="col-lg-12 text-center">
-                        <textarea name="message" placeholder="Your Reason to Contact Us" required>{{ old('message') }}</textarea>
+                        <textarea name="message" placeholder="Your FeedBack" required>{{ old('message') }}</textarea>
                         @error('message')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

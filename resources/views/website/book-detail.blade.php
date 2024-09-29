@@ -22,8 +22,9 @@
                         </div>
                         <div class="mb-2">
                             <label for="p_price" class="form-label">Price</label>
-                            <input type="number" name="b_price" id="p_price" value="{{ $book->b_price }}"
+                            <input type="number" hidden name="b_price" id="p_price" value="{{ $book->b_price }}"
                                 class="form-control p-price" readonly />
+<label for="">PKR{{ $book->b_price }}</label>
                         </div>
                         <a href="{{ route('download-book', $book->book_id) }}" class="btn text-white"
                             style="background-color:#d8ae7e;">Download eBook</a>

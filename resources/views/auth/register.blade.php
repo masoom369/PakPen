@@ -32,9 +32,9 @@
                 <x-label for="payment_method" value="{{ __('Payment Method') }}" />
                 <select id="payment_method" name="payment_method" class="block mt-1 w-full" required>
                     <option value="cashondelivery">{{ __('Cash On Delivery') }}</option>
-                    <option value="easypaisa">{{ __('Easypaisa') }}</option>
+                    {{-- <option value="easypaisa">{{ __('Easypaisa') }}</option>
                     <option value="mastercard">{{ __('Mastercard') }}</option>
-                    <option value="visa">{{ __('Visa') }}</option>
+                    <option value="visa">{{ __('Visa') }}</option> --}}
                 </select>
             </div>
 

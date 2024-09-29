@@ -300,7 +300,7 @@
                 <li>
                     <a href="{{ url('cart') }}">
                         <i class="fa fa-shopping-bag"></i>
-                        <span id="cart-items-count">{{ $totalItems ?? 0 }}</span>
+                        <span id="cart-items-count">{{ $cartSummary['totalItems'] ?? 0 }}</span>
                         <!-- Server-side value with fallback to 0 -->
                     </a>
                 </li>
@@ -498,7 +498,7 @@
                             </ul>
                         </div>
                         <div class="custom-col">
-                            <a href="contactus/" class="site-btn">Contact Us</a>
+                            <a href="{{ url('/contactus') }}" class="site-btn">Contact Us</a>
                         </div>
                         <div class="custom-col">
                             <div class="footer__widget__social">
